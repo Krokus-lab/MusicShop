@@ -1,0 +1,95 @@
+﻿@model MVCSHOP.Models.KlientAdresUser
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Hello,fill them form and register</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <h1>Dane Adresu</h1>
+            <div class="form-group">
+                <label asp-for="Ulica" class="control-label"></label>
+                <input asp-for="Ulica" class="form-control" />
+                <span asp-validation-for="Ulica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lokal" class="control-label"></label>
+                <input asp-for="Lokal" class="form-control" />
+                <span asp-validation-for="Lokal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumerLokal" class="control-label"></label>
+                <input asp-for="NumerLokal" class="form-control" />
+                <span asp-validation-for="NumerLokal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KodPocztowy" class="control-label"></label>
+                <input asp-for="KodPocztowy" class="form-control" />
+                <span asp-validation-for="KodPocztowy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Miasto" class="control-label"></label>
+                <input asp-for="Miasto" class="form-control" />
+                <span asp-validation-for="Miasto" class="text-danger"></span>
+            </div>
+
+            <h1>Dane do logowania</h1>
+            <div class="form-group">
+                <label asp-for="UserPassword" class="control-label"></label>
+                <input asp-for="UserPassword" class="form-control" />
+                <span asp-validation-for="UserPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserLogin" class="control-label"></label>
+                <input asp-for="UserLogin" class="form-control" />
+                <span asp-validation-for="UserLogin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserRole" class="control-label"></label>
+                <input asp-for="UserRole" class="form-control" />
+                <span asp-validation-for="UserRole" class="text-danger"></span>
+            </div>
+
+            <h1>Dane osobiste</h1>
+            <div class="form-group">
+                <label asp-for="Imie" class="control-label"></label>
+                <input asp-for="Imie" class="form-control" />
+                <span asp-validation-for="Imie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nazwisko" class="control-label"></label>
+                <input asp-for="Nazwisko" class="form-control" />
+                <span asp-validation-for="Nazwisko" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefon" class="control-label"></label>
+                <input asp-for="Telefon" class="form-control" />
+                <span asp-validation-for="Telefon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataZostaniaKlientem" class="control-label"></label>
+                <input asp-for="DataZostaniaKlientem" class="form-control" />
+                <span asp-validation-for="DataZostaniaKlientem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

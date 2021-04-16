@@ -1,0 +1,80 @@
+﻿@model System.Data.DataTable
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Klient</h1>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>ID_klienta</th>
+        <th>Imie</th>
+        <th>Nazwisko</th>
+        <th>email</th>
+        <th>telefon</th>
+        <th>Data zostania klientem</th>
+
+    </tr>
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+            <td>@Model.Rows[i][0]</td>
+            <td>@Model.Rows[i][3]</td>
+            <td>@Model.Rows[i][4]</td>
+            <td>@Model.Rows[i][5]</td>
+            <td>@Model.Rows[i][6]</td>
+            <td>@Model.Rows[i][7]</td>
+
+            <td>
+                <a href="@Url.Action("Edit", "Klient", new { @id=Model.Rows[i][0] })">Edycja</a>/
+                <a href="@Url.Action("Delete", "Klient", new { @id=Model.Rows[i][0] })">Usuń</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<h1>Adres klienta</h1>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>ID_adres</th>
+        <th>Ulica</th>
+        <th>Lokal</th>
+        <th>Numer lokalu</th>
+        <th>Kod pocztowy</th>
+        <th>Miasto</th>
+
+    </tr>
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+            <td>@Model.Rows[i][8]</td>
+            <td>@Model.Rows[i][9]</td>
+            <td>@Model.Rows[i][10]</td>
+            <td>@Model.Rows[i][11]</td>
+            <td>@Model.Rows[i][12]</td>
+            <td>@Model.Rows[i][13]</td>
+
+        </tr>
+    }
+</table>
+
+<h1>Konto na stronie</h1>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Login</th>
+        <th>Haslo</th>
+        <th>Rola</th>
+    </tr>
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+            <td>@Model.Rows[i][16]</td>
+            <td>@Model.Rows[i][15]</td>
+            <td>@Model.Rows[i][17]</td>
+        </tr>
+    }
+</table>
+
+<a asp-action="Index">Back to List</a>
