@@ -76,8 +76,8 @@ namespace MVCSHOP.Controllers
                     sqlQuery.Parameters.AddWithValue("@Telefon", collection.Telefon);
                     sqlQuery.ExecuteNonQuery();
                 }
-
-                return RedirectToAction("Index", "Home", null);
+                TempData["Msg"] = "Account created,now u can log in!";
+                return RedirectToAction("Login", "Home", null);
             }
             catch
             {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Piotr\\source\\repos\\MVCSHOP\\MVCSHOP\\MVCSHOP.csproj": {}
+    "C:\\Users\\Piotr\\Documents\\GitHub\\MusicShop\\MVCSHOP\\MVCSHOP\\MVCSHOP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Piotr\\source\\repos\\MVCSHOP\\MVCSHOP\\MVCSHOP.csproj": {
+    "C:\\Users\\Piotr\\Documents\\GitHub\\MusicShop\\MVCSHOP\\MVCSHOP\\MVCSHOP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Piotr\\source\\repos\\MVCSHOP\\MVCSHOP\\MVCSHOP.csproj",
+        "projectUniqueName": "C:\\Users\\Piotr\\Documents\\GitHub\\MusicShop\\MVCSHOP\\MVCSHOP\\MVCSHOP.csproj",
         "projectName": "MVCSHOP",
-        "projectPath": "C:\\Users\\Piotr\\source\\repos\\MVCSHOP\\MVCSHOP\\MVCSHOP.csproj",
+        "projectPath": "C:\\Users\\Piotr\\Documents\\GitHub\\MusicShop\\MVCSHOP\\MVCSHOP\\MVCSHOP.csproj",
         "packagesPath": "C:\\Users\\Piotr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Piotr\\source\\repos\\MVCSHOP\\MVCSHOP\\obj\\",
+        "outputPath": "C:\\Users\\Piotr\\Documents\\GitHub\\MusicShop\\MVCSHOP\\MVCSHOP\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Piotr\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using MVCSHOP.Models;
@@ -14,6 +15,7 @@ namespace MVCSHOP.Controllers
     {
         string StringsqlConn = "Server=PIOTR-PC\\BRACSQL;Database=shopMVC;Trusted_Connection=True;";
         // GET: Pracownik
+        [Authorize]
         public ActionResult Index()
         {
             DataTable dataTable = new DataTable();

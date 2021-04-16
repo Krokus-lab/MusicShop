@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
-
-
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace MVCSHOP
 {
@@ -29,6 +28,11 @@ namespace MVCSHOP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/login";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +52,7 @@ namespace MVCSHOP
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

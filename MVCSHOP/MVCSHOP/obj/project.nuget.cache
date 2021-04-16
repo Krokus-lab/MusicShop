@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EJJh6nHyk2AB+vQ/Dul05vfEyfHX3dPKAZdTIVFWbRWTdHjQm9fJIcoSQrZUqZ4UeMWMfMe9vCB7zs11FnIqBQ==",
+  "dgSpecHash": "3aqtaMYY+XE2iA7r5MIc3f9tUT/RuNd97xFtqGpxWuLPnFuFkbJmWCjegvoi0vtFA0U66wptal39D0vgjFE9iQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Piotr\\source\\repos\\MVCSHOP\\MVCSHOP\\MVCSHOP.csproj",
+  "projectFilePath": "C:\\Users\\Piotr\\Documents\\GitHub\\MusicShop\\MVCSHOP\\MVCSHOP\\MVCSHOP.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Piotr\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Piotr\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
