@@ -21,12 +21,13 @@
             <td>@Model.Rows[i][1]</td>
             <td>@Model.Rows[i][2]</td>
             <td>@Model.Rows[i][3]</td>
-            <td><img src="~/images/@Model.Rows[i][4]" height="100" width="100" asp-append-version="true" /></td>
-            <td><img src="~/images/@Model.Rows[i][5]" height="100" width="100" asp-append-version="true" /></td>
+            <td><img src="@Model.Rows[i][4]" height="200" width="250" asp-append-version="true" /></td>
+            <td><img src="@Model.Rows[i][5]" height="200" width="250" asp-append-version="true" /></td>
             <td>@Model.Rows[i][6]</td>
          
             <td>
                 <a href="@Url.Action("Details", "Produkt", new { @id=Model.Rows[i][0] })">Detale</a>
+                <a href="@Url.Action("Opinia", "Produkt", new { @id=Model.Rows[i][0] })">Opinie</a>
             </td>
         </tr>
     }

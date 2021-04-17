@@ -1,0 +1,28 @@
+﻿@model MVCSHOP.Models.Opinia
+
+@{
+    ViewData["Title"] = "Opinia_edit";
+}
+
+<h1>Opinia_edit</h1>
+<p> @ViewData["idPlyty"]</p>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Opinia_edit">    
+            <div class="form-group">
+                <label asp-for="Tresc" class="control-label"></label>
+                <input  asp-for="Tresc" value="@ViewData["TrescOpini"]" class="form-control" />
+                <span asp-validation-for="Tresc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

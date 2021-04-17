@@ -154,5 +154,93 @@ namespace MVCSHOP.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        // GET: ProduktController/Details/5
+        public ActionResult Opinia(int id)
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select o.id_opinia,o.tresc,k.imie,o.id_plyta from opinia o inner join klient k  on o.id_klient=k.id_klient where o.id_plyta=@ID;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.SelectCommand.Parameters.AddWithValue("@ID", id);
+                sqlData.Fill(dataTable);
+            }
+
+            return View(dataTable);
+        }
+
+        // GET: ProduktController/Opinia/5
+        public ActionResult Opinia_edit(int id)
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select * from opinia where id_opinia=@ID;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.SelectCommand.Parameters.AddWithValue("@ID", id);
+                sqlData.Fill(dataTable);
+            }
+            ViewData["TrescOpini"] = dataTable.Rows[0][3].ToString();
+            return View();
+        }
+
+        // POST: ProduktController/Opinia/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Opinia_edit(int id,Opinia collection)
+        {
+
+            if (ModelState.IsValid)
+            {
+                int id_plyta;
+                using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+                {
+                    sqlConn.Open();
+                    string query = "update opinia set tresc=@Tresc where id_opinia=@ID;";
+                    SqlCommand sqlQuery = new SqlCommand(query, sqlConn);
+                    sqlQuery.Parameters.AddWithValue("@ID", id);
+                    sqlQuery.Parameters.AddWithValue("@Tresc", collection.Tresc);
+                    sqlQuery.ExecuteNonQuery();
+
+                    query = "SELECT id_plyta from opinia where id_opinia=@ID;";
+                    sqlQuery = new SqlCommand(query, sqlConn);
+                    sqlQuery.Parameters.AddWithValue("@ID", id);
+                    id_plyta = Convert.ToInt32(sqlQuery.ExecuteScalar());
+                }
+                return RedirectToAction("Opinia", "Produkt", new { @id = id_plyta });
+
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        // GET: ProduktController/Opinia_delete/5
+        public ActionResult Opinia_delete(int id)
+        {
+            int id_plyta;
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "SELECT id_plyta from opinia where id_opinia=@ID;";
+                SqlCommand sqlQuery = new SqlCommand(query, sqlConn);
+                sqlQuery.Parameters.AddWithValue("@ID", id);
+                id_plyta = Convert.ToInt32(sqlQuery.ExecuteScalar());
+
+                query = "delete from opinia where id_opinia=@ID;";
+                sqlQuery = new SqlCommand(query, sqlConn);
+                sqlQuery.Parameters.AddWithValue("@ID", id);
+                sqlQuery.ExecuteNonQuery();
+
+               
+            }
+            return RedirectToAction("Opinia", "Produkt", new { @id = id_plyta });
+        }
+
+
     }
 }
