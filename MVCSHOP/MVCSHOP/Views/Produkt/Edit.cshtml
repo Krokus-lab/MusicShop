@@ -1,0 +1,70 @@
+﻿@model MVCSHOP.Models.Plyta
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Plytum</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Tytul" class="control-label"></label>
+                <input asp-for="Tytul" value="@ViewData["Tytul"]" class="form-control" />
+                <span asp-validation-for="Tytul" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Autor" class="control-label"></label>
+                <input asp-for="Autor" value="@ViewData["Autor"]" class="form-control" />
+                <span asp-validation-for="Autor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gatunek" class="control-label"></label>
+                <input asp-for="Gatunek" value="@ViewData["Gatunek"]" class="form-control" />
+                <span asp-validation-for="Gatunek" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zdjecie1" class="control-label"></label>
+                <input asp-for="Zdjecie1" value="@ViewData["Zdjecie1"]" class="form-control" />
+                <span asp-validation-for="Zdjecie1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zdjecie2" class="control-label"></label>
+                <input asp-for="Zdjecie2" value="@ViewData["Zdjecie2"]" class="form-control" />
+                <span asp-validation-for="Zdjecie2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cena" class="control-label"></label>
+                <input asp-for="Cena" value="@ViewData["Cena"]" class="form-control" />
+                <span asp-validation-for="Cena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ilosc" class="control-label"></label>
+                <input asp-for="Ilosc" value="@ViewData["Ilosc"]" class="form-control" />
+                <span asp-validation-for="Ilosc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Opis" class="control-label"></label>
+                <input asp-for="Opis" value="@ViewData["Opis"]" class="form-control" />
+                <span asp-validation-for="Opis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataWydania" class="control-label"></label>
+                <input asp-for="DataWydania" value="@ViewData["DataWydania"]" class="form-control" />
+                <span asp-validation-for="DataWydania" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

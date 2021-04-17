@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MVCSHOP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
 </head>
 <body>
     <header>
@@ -25,6 +25,9 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Pracownik" asp-action="Index">Pracownicy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Produkt" asp-action="Index">Płyty</a>
                             </li>
                         }
                         @if (User.Identity.IsAuthenticated)
@@ -53,10 +56,10 @@
                         }
                         @if (User.Identity.IsAuthenticated)
                         {
-                    <li class="nav-item">
-                        <a class="nav-link text-info" asp-area="" style="text-align:right;">You are logged as: @User.Identity.Name</a>
-                        
-                    </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-info" asp-area="" style="text-align:right;">You are logged as: @User.Identity.Name</a>
+
+                            </li>
                         }
                     </ul>
                 </div>

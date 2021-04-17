@@ -309,3 +309,7 @@ C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\ref\M
 C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\MVCSHOP.pdb
 C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\MVCSHOP.genruntimeconfig.cache
 C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Home\Login.cshtml.g.cs
+C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\Index.cshtml.g.cs
+C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\Details.cshtml.g.cs
+C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\Create.cshtml.g.cs
+C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\Edit.cshtml.g.cs
