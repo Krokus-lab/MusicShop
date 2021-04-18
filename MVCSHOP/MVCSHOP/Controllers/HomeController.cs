@@ -27,7 +27,15 @@ namespace MVCSHOP.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select * from plyta";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.Fill(dataTable);
+            }
+            return View(dataTable);
         }
 
         [Authorize]
@@ -89,7 +97,7 @@ namespace MVCSHOP.Controllers
                 if (dataTable.Rows.Count != 0)
                 {
                     var claims = new List<Claim>();
-                    claims.Add(new Claim("name", @dataTable2.Rows[0][3].ToString()));
+                    claims.Add(new Claim("id", @dataTable2.Rows[0][0].ToString()));
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, @dataTable2.Rows[0][3].ToString()));
                     claims.Add(new Claim(ClaimTypes.Name, @dataTable2.Rows[0][3].ToString()));
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

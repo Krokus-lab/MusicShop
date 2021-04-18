@@ -1,10 +1,50 @@
-﻿
+﻿@model System.Data.DataTable
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Home page</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <form asp-action="">
+                <div class="form-group">
+                    <label class=""><h1>Wyczukaj:</h1></label>
+                    <input class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Szukaj" class="btn btn-dark" />
+                </div>
+            </form>
+
+        </div>
+        <div class="col-sm-3">
+            <h2>Cena<i class="fas fa-sort"></i></h2>
+        </div>
+        <div class="col-sm-3">
+            <h2>Data<i class="fas fa-sort"></i></h2>
+        </div>
+    </div>
+        </div>
+    
+
+@for (int i = 0; i < Model.Rows.Count; i++)
+{
+    <div class="container1">
+        <div class="row">
+            <div class="col-sm-3">
+                <p><b>Autor </b> @Model.Rows[i][2]</p>
+                <p><b>Nazwa płyty </b>@Model.Rows[i][1] </p>
+                <p><b>Cena </b> @Model.Rows[i][6]</p><br />
+                <i class="fas fa-cart-plus fa-3x"></i><br /><br /><br />
+                <i class="fas fa-comments fa-3x"></i>
+            </div>
+            <div class="col-sm-6">
+                <img src="@Model.Rows[i][4]" height="300" width="350" asp-append-version="true" />
+            </div>
+        </div>
+    </div>
+}
 
 
 
