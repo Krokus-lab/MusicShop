@@ -38,6 +38,123 @@ namespace MVCSHOP.Controllers
             return View(dataTable);
         }
 
+        public IActionResult Genre(string genre)
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select * from plyta where gatunek=@GENRE;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.SelectCommand.Parameters.AddWithValue("@GENRE", genre);
+                sqlData.Fill(dataTable);
+            }
+            return View("Index", dataTable);
+        }
+
+        // POST: Home/Find
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Find()
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                string fraza = "%";
+                fraza = fraza + HttpContext.Request.Form["fraza"].ToString() + "%";
+                
+                sqlConn.Open();
+                string query = "select * from plyta where autor Like @FRAZA;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.SelectCommand.Parameters.AddWithValue("@FRAZA", fraza);
+                sqlData.Fill(dataTable);
+            }
+            return View("Index", dataTable);
+        }
+
+        // POST: Home/FindCD
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FindCD()
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                string fraza = "%";
+                fraza = fraza + HttpContext.Request.Form["cd"].ToString() + "%";
+
+                sqlConn.Open();
+                string query = "select * from plyta where tytul Like @FRAZA;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.SelectCommand.Parameters.AddWithValue("@FRAZA", fraza);
+                sqlData.Fill(dataTable);
+            }
+            return View("Index", dataTable);
+        }
+
+        // POST: Home/SortPriceASC
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SortPriceASC()
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select * from plyta order by cena asc;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.Fill(dataTable);
+            }
+            return View("Index", dataTable);
+        }
+
+        // POST: Home/SortPriceDESC
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SortPriceDESC()
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select * from plyta order by cena desc;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.Fill(dataTable);
+            }
+            return View("Index", dataTable);
+        }
+
+        // POST: Home/SortDataASC
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SortDataASC()
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select * from plyta order by data_wydania asc;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.Fill(dataTable);
+            }
+            return View("Index", dataTable);
+        }
+
+        // POST: Home/SortDataDESC
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SortDataDESC()
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select * from plyta order by data_wydania desc;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.Fill(dataTable);
+            }
+            return View("Index", dataTable);
+        }
         [Authorize]
         public async Task<IActionResult> Logout()
         {
@@ -67,6 +184,7 @@ namespace MVCSHOP.Controllers
             }
             DataTable dataTable = new DataTable();
             DataTable dataTable2 = new DataTable();
+            DataTable dataTable3 = new DataTable();
             using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
             {
                 sqlConn.Open();
@@ -78,6 +196,7 @@ namespace MVCSHOP.Controllers
 
                 if (dataTable.Rows.Count != 0)
                 {
+                   
                     query = "select * from pracownik where id_siteUser=@ID;";
                     sqlData = new SqlDataAdapter(query, sqlConn);
                     sqlData.SelectCommand.Parameters.AddWithValue("@ID", @dataTable.Rows[0][0]);
@@ -88,7 +207,7 @@ namespace MVCSHOP.Controllers
                         query = "select * from klient where id_siteUser=@ID;";
                         sqlData = new SqlDataAdapter(query, sqlConn);
                         sqlData.SelectCommand.Parameters.AddWithValue("@ID", @dataTable.Rows[0][0]);
-                        sqlData.Fill(dataTable2);
+                        sqlData.Fill(dataTable3);
                     }
                 }
             }
@@ -97,9 +216,19 @@ namespace MVCSHOP.Controllers
                 if (dataTable.Rows.Count != 0)
                 {
                     var claims = new List<Claim>();
+
+                if (dataTable2.Rows.Count == 0)
+                {
+                    claims.Add(new Claim("id", @dataTable3.Rows[0][0].ToString()));
+                    claims.Add(new Claim(ClaimTypes.NameIdentifier, @dataTable3.Rows[0][3].ToString()));
+                    claims.Add(new Claim(ClaimTypes.Name, @dataTable3.Rows[0][3].ToString()));
+                }
+                else
+                {
                     claims.Add(new Claim("id", @dataTable2.Rows[0][0].ToString()));
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, @dataTable2.Rows[0][3].ToString()));
                     claims.Add(new Claim(ClaimTypes.Name, @dataTable2.Rows[0][3].ToString()));
+                }
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                     await HttpContext.SignInAsync(claimsPrincipal);

@@ -2,50 +2,114 @@
 
 @{
     ViewData["Title"] = "Index";
+    List<string> firstlist = new List<string>();
 }
+
 
 <div class="container">
     <div class="row">
         <div class="col-sm-4">
-            <form asp-action="">
-                <div class="form-group">
-                    <label class=""><h1>Wyczukaj:</h1></label>
-                    <input class="form-control" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Szukaj" class="btn btn-dark" />
-                </div>
-            </form>
+            <div class="container">
+                <div class="row">
 
+                    <form asp-action="Find">
+                        <div class="form-group">
+                            <label class="fraza"><h1>Wyszukaj autora:</h1></label>
+                            <input class="form-control" name="fraza" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Szukaj" class="btn btn-dark" />
+                        </div>
+                    </form>
+
+                    <form asp-action="FindCD">
+                        <div class="form-group">
+                            <label class="cd"><h1>Wyszukaj płytę:</h1></label>
+                            <input class="form-control" name="cd" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Szukaj" class="btn btn-dark" />
+                        </div>
+                    </form>
+
+
+                </div>
+                <div class="row">
+                    <h1>Sortuj po cenie</h1>
+                    <form asp-action="SortPriceASC">
+                        <div class="form-group">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Od najmniejszej" class="btn btn-dark" />
+                        </div>
+                    </form><br />
+                    <form asp-action="SortPriceDESC">
+                        <div class="form-group">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Od największej" class="btn btn-dark" />
+                        </div>
+                    </form>
+                    <hr style="border-bottom:solid 1px #ff00ff;">
+
+                    <h1>Sortuj po dacie</h1>
+                    <form asp-action="SortDataASC">
+                        <div class="form-group">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Najstarsze" class="btn btn-dark" />
+                        </div>
+                    </form><br />
+                    <form asp-action="SortDataDESC">
+                        <div class="form-group">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Najnowsze" class="btn btn-dark" />
+                        </div>
+                    </form><br />
+                </div>
+                <div class="row">
+                    <h1>Gatunki</h1>
+                </div>
+                        @for (int i = 0; i < Model.Rows.Count; i++)
+                        {
+            <div class="row">
+                @if (!(firstlist.Contains(@Model.Rows[i][3])))
+                {
+                    firstlist.Add(Model.Rows[i][3].ToString());
+                    <a class="text-dark" href="@Url.Action("Genre", "Home", new { genre=Model.Rows[i][3] })">@Model.Rows[i][3]</a>
+
+                }
+            </div>
+                        }
+
+                        <br />
+
+                    
+                </div>
         </div>
-        <div class="col-sm-3">
-            <h2>Cena<i class="fas fa-sort"></i></h2>
-        </div>
-        <div class="col-sm-3">
-            <h2>Data<i class="fas fa-sort"></i></h2>
+        <div class="col-sm-6">
+
+            @for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                <div class="container1">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p><b>Autor </b> @Model.Rows[i][2]</p>
+                            <p><b>Nazwa płyty </b>@Model.Rows[i][1] </p>
+                            <p><b>Cena </b> @Model.Rows[i][6]</p><br />
+                            <i class="fas fa-cart-plus fa-3x"></i><br /><br /><br />
+                            <i class="fas fa-comments fa-3x"></i>
+                        </div>
+                        <div class="col-sm-6">
+                            <img src="@Model.Rows[i][4]" height="300" width="350" asp-append-version="true" />
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
-        </div>
-    
-
-@for (int i = 0; i < Model.Rows.Count; i++)
-{
-    <div class="container1">
-        <div class="row">
-            <div class="col-sm-3">
-                <p><b>Autor </b> @Model.Rows[i][2]</p>
-                <p><b>Nazwa płyty </b>@Model.Rows[i][1] </p>
-                <p><b>Cena </b> @Model.Rows[i][6]</p><br />
-                <i class="fas fa-cart-plus fa-3x"></i><br /><br /><br />
-                <i class="fas fa-comments fa-3x"></i>
-            </div>
-            <div class="col-sm-6">
-                <img src="@Model.Rows[i][4]" height="300" width="350" asp-append-version="true" />
-            </div>
-        </div>
-    </div>
-}
-
+</div>
 
 
 @section Scripts {
