@@ -1,0 +1,39 @@
+﻿@model System.Data.DataTable
+@{
+    ViewData["Title"] = "Index";
+    var error = TempData["Error"] as string;
+}
+
+<h1>Koszyk</h1>
+<h2>Wartość koszyka: <b>@ViewData["full_cart_price"]</b></h2>
+@if (!string.IsNullOrEmpty(error))
+{
+    <h2 class="alert-danger" style="padding:25px;">@error</h2>
+}
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Pozycja</th>
+        <th></th>
+        <th>Cena</th>
+        <th>Ilosc</th>
+        <th></th>
+    </tr>
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+
+            <td>@Model.Rows[i][8] @Model.Rows[i][7]</td>
+            <td><img src="@Model.Rows[i][10]" height="200" width="250" asp-append-version="true" /></td>
+            <td>@Model.Rows[i][12]</td>
+            <td>@Model.Rows[i][5]</td>
+
+            <td>
+                <a href="@Url.Action("PlytaAdd", "Koszyk", new { @id=Model.Rows[i][2] })">+1</a>
+                <a href="@Url.Action("PlytaRemove", "Koszyk", new { @id=Model.Rows[i][2] })">-1</a>
+            </td>
+        </tr>
+    }
+</table>
+
+
+<a href="@Url.Action("Create", "Produkt")">Złóż zamówienie</a>

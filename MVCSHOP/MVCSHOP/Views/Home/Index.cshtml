@@ -3,8 +3,18 @@
 @{
     ViewData["Title"] = "Index";
     List<string> firstlist = new List<string>();
+    var error = TempData["Error"] as string;
+    var msg = TempData["Msg"] as string;
 }
 
+@if (!string.IsNullOrEmpty(error))
+{
+    <h2 class="alert-danger" style="padding:25px;">@error</h2>
+}
+@if (!string.IsNullOrEmpty(msg))
+{
+    <h2 class="alert-success" style="padding:25px;">@msg</h2>
+}
 
 <div class="container">
     <div class="row">
@@ -71,22 +81,22 @@
                 <div class="row">
                     <h1>Gatunki</h1>
                 </div>
-                        @for (int i = 0; i < Model.Rows.Count; i++)
-                        {
-            <div class="row">
-                @if (!(firstlist.Contains(@Model.Rows[i][3])))
+                @for (int i = 0; i < Model.Rows.Count; i++)
                 {
-                    firstlist.Add(Model.Rows[i][3].ToString());
-                    <a class="text-dark" href="@Url.Action("Genre", "Home", new { genre=Model.Rows[i][3] })">@Model.Rows[i][3]</a>
+                    <div class="row">
+                        @if (!(firstlist.Contains(@Model.Rows[i][3])))
+                        {
+                            firstlist.Add(Model.Rows[i][3].ToString());
+                            <a class="text-dark" href="@Url.Action("Genre", "Home", new { genre=Model.Rows[i][3] })">@Model.Rows[i][3]</a>
 
-                }
-            </div>
                         }
+                    </div>
+                }
 
-                        <br />
+                <br />
 
-                    
-                </div>
+
+            </div>
         </div>
         <div class="col-sm-6">
 
@@ -98,7 +108,9 @@
                             <p><b>Autor </b> @Model.Rows[i][2]</p>
                             <p><b>Nazwa płyty </b>@Model.Rows[i][1] </p>
                             <p><b>Cena </b> @Model.Rows[i][6]</p><br />
-                            <i class="fas fa-cart-plus fa-3x"></i><br /><br /><br />
+                            <a href="@Url.Action("AddToCartFromMainPage", "Koszyk", new { @id=Model.Rows[i][0] })"><i class="fas fa-cart-plus fa-3x"></i></a>
+
+                            <br /><br />
                             <i class="fas fa-comments fa-3x"></i>
                         </div>
                         <div class="col-sm-6">

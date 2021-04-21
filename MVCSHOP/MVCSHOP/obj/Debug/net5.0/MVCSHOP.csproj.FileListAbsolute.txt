@@ -315,3 +315,4 @@ C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor
 C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\Edit.cshtml.g.cs
 C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\Opinia.cshtml.g.cs
 C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\Opinia_edit.cshtml.g.cs
+C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Koszyk\Index.cshtml.g.cs

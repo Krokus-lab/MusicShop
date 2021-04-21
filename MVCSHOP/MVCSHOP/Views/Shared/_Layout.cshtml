@@ -61,7 +61,7 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-info" asp-area="" ><i class="fas fa-shopping-cart"></i></a>
+                                    <a class="nav-link text-info" asp-area=""  asp-controller="Koszyk" asp-action="Index"><i class="fas fa-shopping-cart"></i></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-info" asp-area="" >You are logged as: @User.Identity.Name</a>
