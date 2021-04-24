@@ -316,3 +316,6 @@ C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor
 C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\Opinia.cshtml.g.cs
 C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\Opinia_edit.cshtml.g.cs
 C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Koszyk\Index.cshtml.g.cs
+C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\OpinionsForClient.cshtml.g.cs
+C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\OpinionAddClient.cshtml.g.cs
+C:\Users\Piotr\Documents\GitHub\MusicShop\MVCSHOP\MVCSHOP\obj\Debug\net5.0\Razor\Views\Produkt\ClientEditOpinia.cshtml.g.cs

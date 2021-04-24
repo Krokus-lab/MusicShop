@@ -109,9 +109,10 @@
                             <p><b>Nazwa płyty </b>@Model.Rows[i][1] </p>
                             <p><b>Cena </b> @Model.Rows[i][6]</p><br />
                             <a href="@Url.Action("AddToCartFromMainPage", "Koszyk", new { @id=Model.Rows[i][0] })"><i class="fas fa-cart-plus fa-3x"></i></a>
-
+                            <a href="@Url.Action("OpinionsForClient", "Produkt", new { @id=Model.Rows[i][0] })"><i class="fas fa-comments fa-3x"></i></a>
                             <br /><br />
-                            <i class="fas fa-comments fa-3x"></i>
+
+
                         </div>
                         <div class="col-sm-6">
                             <img src="@Model.Rows[i][4]" height="300" width="350" asp-append-version="true" />

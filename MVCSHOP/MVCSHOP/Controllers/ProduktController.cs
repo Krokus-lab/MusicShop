@@ -155,7 +155,7 @@ namespace MVCSHOP.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: ProduktController/Details/5
+        // GET: ProduktController/Opinia/5
         public ActionResult Opinia(int id)
         {
             DataTable dataTable = new DataTable();
@@ -171,7 +171,7 @@ namespace MVCSHOP.Controllers
             return View(dataTable);
         }
 
-        // GET: ProduktController/Opinia/5
+        // GET: ProduktController/Opinia_edit/5
         public ActionResult Opinia_edit(int id)
         {
             DataTable dataTable = new DataTable();
@@ -187,7 +187,7 @@ namespace MVCSHOP.Controllers
             return View();
         }
 
-        // POST: ProduktController/Opinia/5
+        // POST: ProduktController/Opinia_edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Opinia_edit(int id,Opinia collection)
@@ -241,6 +241,123 @@ namespace MVCSHOP.Controllers
             return RedirectToAction("Opinia", "Produkt", new { @id = id_plyta });
         }
 
+        // GET: ProduktController/OpinionsForClient/5
+        public ActionResult OpinionsForClient(int id)
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select o.id_opinia,o.tresc,k.imie,o.id_plyta,p.autor,p.tytul,k.id_klient from opinia o inner join klient k  on o.id_klient=k.id_klient  inner join plyta p on p.id_plyta=o.id_plyta where o.id_plyta=@ID;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.SelectCommand.Parameters.AddWithValue("@ID", id);
+                sqlData.Fill(dataTable);
+            }
+
+            return View(dataTable);
+        }
+
+        // GET: ProduktController/OpinionAddClient/5
+        public ActionResult OpinionAddClient(int id)
+        {
+            return View();
+        }
+
+
+        // POST: ProduktController/OpinionAddClient/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult OpinionAddClient(int id, Opinia collection)
+        {
+
+            if (ModelState.IsValid)
+            {
+                using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+                {
+                    sqlConn.Open();
+                    string query = "INSERT INTO opinia VALUES(@ID_KLIENT, @ID_PLYTA, @TRESC);";
+                    SqlCommand sqlQuery = new SqlCommand(query, sqlConn);
+                    sqlQuery.Parameters.AddWithValue("@ID_PLYTA", id);
+                    sqlQuery.Parameters.AddWithValue("@ID_KLIENT", @User.FindFirst("id").Value);
+                    sqlQuery.Parameters.AddWithValue("@Tresc", collection.Tresc);
+                    sqlQuery.ExecuteNonQuery();
+                }
+                return RedirectToAction("OpinionsForClient", "Produkt", new { @id = id });            }
+            else
+            {
+                return View();
+            }
+        }
+
+        // GET: ProduktController/ClientDeleteOpinia/5
+        public ActionResult ClientDeleteOpinia(int id)
+        {
+            int id_plyta;
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "SELECT id_plyta from opinia where id_opinia=@ID;";
+                SqlCommand sqlQuery = new SqlCommand(query, sqlConn);
+                sqlQuery.Parameters.AddWithValue("@ID", id);
+                id_plyta = Convert.ToInt32(sqlQuery.ExecuteScalar());
+
+                query = "delete from opinia where id_opinia=@ID;";
+                sqlQuery = new SqlCommand(query, sqlConn);
+                sqlQuery.Parameters.AddWithValue("@ID", id);
+                sqlQuery.ExecuteNonQuery();
+
+
+            }
+            return RedirectToAction("OpinionsForClient", "Produkt", new { @id = id_plyta });
+        }
+
+        // GET: ProduktController/ClientEditOpinia/5
+        public ActionResult ClientEditOpinia(int id)
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select * from opinia where id_opinia=@ID;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.SelectCommand.Parameters.AddWithValue("@ID", id);
+                sqlData.Fill(dataTable);
+            }
+            ViewData["TrescOpini"] = dataTable.Rows[0][3].ToString();
+            return View();
+        }
+
+        // POST: ProduktController/ClientEditOpinia/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ClientEditOpinia(int id, Opinia collection)
+        {
+
+            if (ModelState.IsValid)
+            {
+                int id_plyta;
+                using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+                {
+                    sqlConn.Open();
+                    string query = "update opinia set tresc=@Tresc where id_opinia=@ID;";
+                    SqlCommand sqlQuery = new SqlCommand(query, sqlConn);
+                    sqlQuery.Parameters.AddWithValue("@ID", id);
+                    sqlQuery.Parameters.AddWithValue("@Tresc", collection.Tresc);
+                    sqlQuery.ExecuteNonQuery();
+
+                    query = "SELECT id_plyta from opinia where id_opinia=@ID;";
+                    sqlQuery = new SqlCommand(query, sqlConn);
+                    sqlQuery.Parameters.AddWithValue("@ID", id);
+                    id_plyta = Convert.ToInt32(sqlQuery.ExecuteScalar());
+                }
+                return RedirectToAction("OpinionsForClient", "Produkt", new { @id = id_plyta });
+
+            }
+            else
+            {
+                return View();
+            }
+        }
 
     }
 }
