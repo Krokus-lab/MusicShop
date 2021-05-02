@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Index";
     var error = TempData["Error"] as string;
+    var msg = TempData["Msg"] as string;
 }
 
 <h1>Koszyk</h1>
@@ -9,6 +10,10 @@
 @if (!string.IsNullOrEmpty(error))
 {
     <h2 class="alert-danger" style="padding:25px;">@error</h2>
+}
+@if (!string.IsNullOrEmpty(msg))
+{
+    <h2 class="alert-success" style="padding:25px;">@msg</h2>
 }
 <table class="table table-bordered table-striped">
     <tr>
@@ -36,4 +41,4 @@
 </table>
 
 
-<a href="@Url.Action("Create", "Produkt")">Złóż zamówienie</a>
+<a href="@Url.Action("DodajZamowienie", "Koszyk")">Złóż zamówienie</a>

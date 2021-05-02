@@ -35,6 +35,72 @@ namespace MVCSHOP.Controllers
             return View(dataTable);
         }
 
+        public ActionResult DodajZamowienie()
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select * from koszyk k inner join pozycjaKoszyka p on k.id_koszyk=p.id_koszyk inner join plyta pl on pl.id_plyta=p.id_plyta where k.id_klient=@ID;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.SelectCommand.Parameters.AddWithValue("@ID", User.FindFirst("id").Value);
+                sqlData.Fill(dataTable);
+            }
+            double full_cart_price = 0;
+            DateTime data = DateTime.Today;
+            int zamowienieID;
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                full_cart_price += Convert.ToDouble(dataTable.Rows[i][12]) * Convert.ToDouble(dataTable.Rows[i][5]);
+            }
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();        
+                string query = "INSERT INTO zamowienie VALUES(@ID_KLIENT, @DATA, @Stan,@Cena);";
+                SqlCommand sqlQuery = new SqlCommand(query, sqlConn);
+                sqlQuery.Parameters.AddWithValue("@ID_KLIENT", @User.FindFirst("id").Value);
+                sqlQuery.Parameters.AddWithValue("@DATA", data.ToString());
+                sqlQuery.Parameters.AddWithValue("@Stan", "Przetwarzanie");
+                sqlQuery.Parameters.AddWithValue("@Cena", full_cart_price);
+                sqlQuery.ExecuteNonQuery();
+
+                query = "SELECT TOP 1 id_zamowienie FROM zamowienie ORDER BY id_zamowienie DESC;";
+                sqlQuery = new SqlCommand(query, sqlConn);
+                zamowienieID = Convert.ToInt32(sqlQuery.ExecuteScalar());
+
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    query = "insert into pozycjaZamowienia values (@IDPLYTA,@IDZAMOWIENIE,@ILOSC);";
+                    sqlQuery = new SqlCommand(query, sqlConn);
+                    sqlQuery.Parameters.AddWithValue("@IDPLYTA", Convert.ToInt32(dataTable.Rows[i][4]));
+                    sqlQuery.Parameters.AddWithValue("@IDZAMOWIENIE", zamowienieID);
+                    sqlQuery.Parameters.AddWithValue("@ILOSC", Convert.ToInt32(dataTable.Rows[i][5]));       
+                    sqlQuery.ExecuteNonQuery();
+
+                    query = "delete from pozycjaKoszyka where id_pozycjaKoszyka=@ID;;";
+                    sqlQuery = new SqlCommand(query, sqlConn);
+                    sqlQuery.Parameters.AddWithValue("@ID", Convert.ToInt32(dataTable.Rows[i][2]));
+                    sqlQuery.ExecuteNonQuery();
+
+                    query = "select ilosc from plyta where id_plyta=@ID;";
+                    sqlQuery = new SqlCommand(query, sqlConn);
+                    sqlQuery.Parameters.AddWithValue("@ID", Convert.ToInt32(dataTable.Rows[i][4]));
+                    int ilosc = Convert.ToInt32(sqlQuery.ExecuteScalar());
+                    ilosc -= Convert.ToInt32(dataTable.Rows[i][5]);
+
+                    query = "update plyta set ilosc=@Ilosc where id_plyta=@ID;";
+                    sqlQuery = new SqlCommand(query, sqlConn);
+                    sqlQuery.Parameters.AddWithValue("@ID", Convert.ToInt32(dataTable.Rows[i][4]));
+                    sqlQuery.Parameters.AddWithValue("@Ilosc", ilosc);
+                    sqlQuery.ExecuteNonQuery();
+                }
+            }
+            TempData["Msg"] = "Dodano zamówienie";
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
         [Authorize]
         public ActionResult AddToCartFromMainPage(int id)
         {

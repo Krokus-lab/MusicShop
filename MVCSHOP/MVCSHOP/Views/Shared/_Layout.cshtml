@@ -39,6 +39,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Klient" asp-action="Index">Klienci</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Zamowienie" asp-action="Index">Zamowienia</a>
+                                </li>
                             }
                             @if (!User.Identity.IsAuthenticated)
                             {
@@ -61,14 +64,15 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-info" asp-area=""  asp-controller="Koszyk" asp-action="Index"><i class="fas fa-shopping-cart"></i></a>
+                                    <a class="nav-link text-info" asp-area="" asp-controller="Koszyk" asp-action="Index"><i class="fas fa-shopping-cart"></i></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-info" asp-area="" >You are logged as: @User.Identity.Name</a>
+                                    <a class="nav-link text-info" asp-area="">You are logged as: @User.Identity.Name</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-info" asp-area="" >ID: @User.FindFirst("id").Value</a>
+                                    <a class="nav-link text-info" asp-area="">ID: @User.FindFirst("id").Value</a>
                                 </li>
+
 
                             }
                         </ul>
