@@ -80,12 +80,14 @@ namespace MVCSHOP.Controllers
                     sqlQuery = new SqlCommand(query, sqlConn);
                     sqlQuery.Parameters.AddWithValue("@UserPassword", collection.UserPassword);
                     sqlQuery.Parameters.AddWithValue("@UserLogin", collection.UserLogin);
-                    sqlQuery.Parameters.AddWithValue("@UserRole", collection.UserRole);                 
+                    sqlQuery.Parameters.AddWithValue("@UserRole", "pracownik");                 
                     sqlQuery.ExecuteNonQuery();
 
                     query = "SELECT TOP 1 id_siteUser FROM siteUser ORDER BY id_siteUser DESC;";
                     sqlQuery = new SqlCommand(query, sqlConn);
                     int id_siteUser = Convert.ToInt32(sqlQuery.ExecuteScalar());
+
+                    DateTime data = DateTime.Today;
 
                     query = "INSERT INTO pracownik VALUES(@IdAdres,@IdSiteUser,@Imie, @Nazwisko, @DataZatrudnienia,@Email,@Telefon);";
                     sqlQuery = new SqlCommand(query, sqlConn);
@@ -93,7 +95,7 @@ namespace MVCSHOP.Controllers
                     sqlQuery.Parameters.AddWithValue("@IdSiteUser", id_siteUser);
                     sqlQuery.Parameters.AddWithValue("@Imie", collection.Imie);
                     sqlQuery.Parameters.AddWithValue("@Nazwisko", collection.Nazwisko);
-                    sqlQuery.Parameters.AddWithValue("@DataZatrudnienia", collection.DataZatrudnienia);
+                    sqlQuery.Parameters.AddWithValue("@DataZatrudnienia", data.ToString());
                     sqlQuery.Parameters.AddWithValue("@Email", collection.Email);
                     sqlQuery.Parameters.AddWithValue("@Telefon", collection.Telefon);
                     sqlQuery.ExecuteNonQuery();

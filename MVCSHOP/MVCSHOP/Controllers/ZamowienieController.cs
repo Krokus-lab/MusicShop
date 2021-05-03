@@ -27,6 +27,34 @@ namespace MVCSHOP.Controllers
             return View(dataTable);
         }
 
+        public ActionResult ZamowieniaKlient()
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select * from zamowienie where id_klient=@ID;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.SelectCommand.Parameters.AddWithValue("@ID", @User.FindFirst("id").Value);
+                sqlData.Fill(dataTable);
+            }
+            return View(dataTable);
+        }
+
+        public ActionResult ZamowienieDetails(int id)
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
+            {
+                sqlConn.Open();
+                string query = "select * from pozycjaZamowienia p inner join plyta pl on p.id_plyta=pl.id_plyta where id_zamowienie=@ID;";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConn);
+                sqlData.SelectCommand.Parameters.AddWithValue("@ID", id);
+                sqlData.Fill(dataTable);
+            }
+            return View(dataTable);
+        }
+
         // GET: ProduktController/StatusEdit/5
         public ActionResult StatusEdit(int id)
         {
