@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using MVCSHOP.Models;
@@ -14,6 +15,7 @@ namespace MVCSHOP.Controllers
     {
         string StringsqlConn = "Server=PIOTR-PC\\BRACSQL;Database=shopMVC;Trusted_Connection=True;";
         // GET: Klient
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             DataTable dataTable = new DataTable();
@@ -28,6 +30,7 @@ namespace MVCSHOP.Controllers
         }
 
         // GET: Klient/Details/5
+        [Authorize(Roles = "admin")]
         public ActionResult Details(int id)
         {
             DataTable dataTable = new DataTable();
@@ -44,12 +47,14 @@ namespace MVCSHOP.Controllers
         }
 
         // GET: Klient/Create
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Klient/Create
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(KlientAdresUser collection)
@@ -116,6 +121,7 @@ namespace MVCSHOP.Controllers
         }
 
         // GET: Klient/Edit/5
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id)
         {
             DataTable dataTable = new DataTable();
@@ -148,6 +154,7 @@ namespace MVCSHOP.Controllers
         }
 
         // POST: Klient/Edit/5
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, KlientAdresUser collection)
@@ -205,6 +212,7 @@ namespace MVCSHOP.Controllers
         }
 
         // GET: Klient/Delete/5
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
         {
             using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))

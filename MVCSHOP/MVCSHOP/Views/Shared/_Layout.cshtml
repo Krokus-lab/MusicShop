@@ -27,48 +27,41 @@
                             </li>
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Pracownik" asp-action="Index">Pracownicy</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Produkt" asp-action="Index">Płyty</a>
-                                </li>
-                            }
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Klient" asp-action="Index">Klienci</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Zamowienie" asp-action="Index">Zamowienia</a>
-                                </li>
+                                if (User.IsInRole("pracownik")|| User.IsInRole("admin"))
+                                {
+                                    if (User.IsInRole("admin"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Pracownik" asp-action="Index">Pracownicy</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Klient" asp-action="Index">Klienci</a>
+                                        </li>
+
+                                    }
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Produkt" asp-action="Index">Płyty</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Zamowienie" asp-action="Index">Zamowienia</a>
+                                    </li>
+                                }
+                                if (User.IsInRole("klient"))
+                                {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Zamowienie" asp-action="ZamowieniaKlient">Twoje zamówienia</a>
                                 </li>
-                            }
-                            @if (!User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-info" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
-                                </li>
-                            }
-                            @if (!User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-info" asp-area="" asp-controller="Register" asp-action="Create">Register</a>
-                                </li>
-                            }
-                            @if (User.Identity.IsAuthenticated)
-                            {
+                                }
                                 <li class="nav-item">
                                     <a class="nav-link text-danger" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                                 </li>
-                            }
-                            @if (User.Identity.IsAuthenticated)
-                            {
+                                if (User.IsInRole("klient"))
+                                {
                                 <li class="nav-item">
                                     <a class="nav-link text-info" asp-area="" asp-controller="Koszyk" asp-action="Index"><i class="fas fa-shopping-cart"></i></a>
                                 </li>
+                                }
                                 <li class="nav-item">
                                     <a class="nav-link text-info" asp-area="">You are logged as: @User.Identity.Name</a>
                                 </li>
@@ -78,6 +71,17 @@
 
 
                             }
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-info" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-info" asp-area="" asp-controller="Register" asp-action="Create">Register</a>
+                                </li>
+                            }
+
                         </ul>
                     </div>
 </div>

@@ -222,12 +222,15 @@ namespace MVCSHOP.Controllers
                     claims.Add(new Claim("id", @dataTable3.Rows[0][0].ToString()));
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, @dataTable3.Rows[0][3].ToString()));
                     claims.Add(new Claim(ClaimTypes.Name, @dataTable3.Rows[0][3].ToString()));
+                    claims.Add(new Claim(ClaimTypes.Role, @dataTable.Rows[0][3].ToString()));
+
                 }
                 else
                 {
                     claims.Add(new Claim("id", @dataTable2.Rows[0][0].ToString()));
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, @dataTable2.Rows[0][3].ToString()));
                     claims.Add(new Claim(ClaimTypes.Name, @dataTable2.Rows[0][3].ToString()));
+                    claims.Add(new Claim(ClaimTypes.Role, @dataTable.Rows[0][3].ToString()));
                 }
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);

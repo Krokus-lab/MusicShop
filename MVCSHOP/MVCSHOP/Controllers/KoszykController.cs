@@ -14,6 +14,7 @@ namespace MVCSHOP.Controllers
     {
         string StringsqlConn = "Server=PIOTR-PC\\BRACSQL;Database=shopMVC;Trusted_Connection=True;";
         // GET: KoszykController
+        [Authorize(Roles = "klient")]
         public ActionResult Index()
         {
             DataTable dataTable = new DataTable();
@@ -34,7 +35,7 @@ namespace MVCSHOP.Controllers
 
             return View(dataTable);
         }
-
+        [Authorize(Roles = "klient")]
         public ActionResult DodajZamowienie()
         {
             DataTable dataTable = new DataTable();

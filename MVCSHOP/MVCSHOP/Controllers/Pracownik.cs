@@ -15,7 +15,7 @@ namespace MVCSHOP.Controllers
     {
         string StringsqlConn = "Server=PIOTR-PC\\BRACSQL;Database=shopMVC;Trusted_Connection=True;";
         // GET: Pracownik
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             DataTable dataTable = new DataTable();
@@ -31,6 +31,7 @@ namespace MVCSHOP.Controllers
         }
 
         // GET: Pracownik/Details/5
+        [Authorize(Roles = "admin")]
         public ActionResult Details(int id)
         {
             DataTable dataTable = new DataTable();
@@ -47,12 +48,14 @@ namespace MVCSHOP.Controllers
         }
 
         // GET: Pracownik/Create
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Pracownik/Create
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(PracownikAdresUser collection)
@@ -110,6 +113,7 @@ namespace MVCSHOP.Controllers
         }
 
         // GET: Pracownik/Edit/5
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id)
         {
             DataTable dataTable = new DataTable();
@@ -142,6 +146,7 @@ namespace MVCSHOP.Controllers
         }
 
         // POST: Pracownik/Edit/5
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, PracownikAdresUser collection)
@@ -199,6 +204,7 @@ namespace MVCSHOP.Controllers
         }
 
         // GET: Pracownik/Delete/5
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
         {
             using (SqlConnection sqlConn = new SqlConnection(StringsqlConn))
