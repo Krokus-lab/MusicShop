@@ -1,0 +1,179 @@
+CREATE TABLE adres (
+  id_adres INTEGER PRIMARY KEY IDENTITY,
+  ulica VARCHAR(50) NOT NULL,
+  lokal VARCHAR(50) NOT NULL,
+  numer_lokal VARCHAR(10) NOT NULL,
+  kod_pocztowy CHAR(11) NOT NULL,
+  miasto VARCHAR(30) NOT NULL
+);
+GO
+
+CREATE TABLE siteUser (
+  id_siteUser INTEGER PRIMARY KEY IDENTITY,
+  user_password VARCHAR(25) NOT NULL,
+  user_login VARCHAR(25) NOT NULL,
+  user_role VARCHAR(15) NOT NULL
+);
+GO
+
+CREATE TABLE pracownik (
+  id_pracownik INTEGER PRIMARY KEY IDENTITY,
+  id_adres INTEGER NOT NULL UNIQUE REFERENCES adres(id_adres),
+  id_siteUser INTEGER NOT NULL UNIQUE REFERENCES siteUser(id_siteUser),
+  imie VARCHAR(25) NOT NULL,
+  nazwisko VARCHAR(30) NOT NULL,
+  data_zatrudnienia DATETIME NOT NULL,
+  email VARCHAR(25) NOT NULL,
+  telefon VARCHAR(25) NOT NULL,
+);
+go
+
+CREATE TABLE klient (
+  id_klient INTEGER PRIMARY KEY IDENTITY,
+  id_adres INTEGER NOT NULL UNIQUE REFERENCES adres(id_adres),
+  id_siteUser INTEGER NOT NULL UNIQUE REFERENCES siteUser(id_siteUser),
+  imie VARCHAR(25) NOT NULL,
+  nazwisko VARCHAR(30) NOT NULL,
+  email VARCHAR(25) NOT NULL,
+  telefon VARCHAR(25) NOT NULL,
+  data_zostania_klientem DATETIME NOT NULL
+);
+go
+
+CREATE TABLE plyta (
+  id_plyta INTEGER PRIMARY KEY IDENTITY,
+  tytul VARCHAR(50) NOT NULL,
+  autor VARCHAR(50) NOT NULL,
+  gatunek VARCHAR(40) NOT NULL,
+  zdjecie1 VARCHAR(100) NOT NULL,
+  zdjecie2 VARCHAR(100) NOT NULL,
+  cena DECIMAL (8,2) NOT NULL,
+  ilosc INTEGER NOT NULL,
+  opis TEXT NOT NULL,
+  data_wydania DATETIME NOT NULL,
+);
+go
+
+CREATE TABLE opinia (
+  id_opinia INTEGER PRIMARY KEY IDENTITY,
+  id_klient INTEGER NOT NULL REFERENCES klient(id_klient),
+  id_plyta INTEGER NOT NULL REFERENCES plyta(id_plyta),
+  tresc TEXT NOT NULL
+);
+go
+
+CREATE TABLE zamowienie (
+  id_zamowienie INTEGER PRIMARY KEY IDENTITY,
+  id_klient INTEGER NOT NULL REFERENCES klient(id_klient),
+  data_zamowienia DATETIME NOT NULL,
+  stan_zamowienia VARCHAR(50) NOT NULL,
+  cena_zamowienia DECIMAL (8,2) NOT NULL
+);
+go
+
+CREATE TABLE pozycjaZamowienia (
+  id_pozycjaZamowienia INTEGER PRIMARY KEY IDENTITY,
+  id_plyta INTEGER NOT NULL REFERENCES plyta(id_plyta),
+  id_zamowienie INTEGER NOT NULL REFERENCES zamowienie(id_zamowienie),
+  ilosc INTEGER NOT NULL,
+);
+go
+
+CREATE TABLE koszyk (
+  id_koszyk INTEGER PRIMARY KEY IDENTITY,
+  id_klient INTEGER NOT NULL REFERENCES klient(id_klient)
+);
+go
+
+CREATE TABLE pozycjaKoszyka (
+  id_pozycjaKoszyka INTEGER PRIMARY KEY IDENTITY,
+  id_koszyk INTEGER NOT NULL REFERENCES koszyk(id_koszyk),
+  id_plyta INTEGER NOT NULL REFERENCES plyta(id_plyta),
+  ilosc INTEGER NOT NULL,
+);
+go
+
+INSERT INTO adres(ulica,lokal,numer_lokal,kod_pocztowy,miasto) VALUES 
+('Wolna','34','2','234-10','Gdynia'),
+('Chylonia','35','7','234-11','Sopot'),
+('Przejezdna','4','a','234-11','Przejazdowo'),
+('Przejezdna','4','b','234-11','Przejazdowo'),
+('Przejezdna','4','c','234-11','Przejazdowo'),
+('Extra','2','','234-11','Przejazdowo');
+go
+
+INSERT INTO siteUser(user_password,user_login,user_role) values
+('pracownik1','pracownik1','admin'),
+('pracownik1','pracownik1','pracownik'),
+('pracownik1','pracownik1','pracownik'),
+('klient1','klient1','klient'),
+('klient2','klient2','klient'),
+('klient3','klient3','klient');
+go
+
+INSERT INTO pracownik(id_adres,id_siteUser,imie,nazwisko,data_zatrudnienia,email,telefon) VALUES 
+(1,1,'Adam','Benc','1990-01-01','adam@wp.pl','534333222'),
+(2,2,'Jan','Kowalski','1990-01-02','Jan@wp.pl','511222333'),
+(3,3,'Andrzej','Wal','1991-01-01','Wal@wp.pl','544333222');
+go
+
+INSERT INTO klient(id_adres,id_siteUser,imie,nazwisko,email,telefon,data_zostania_klientem) VALUES 
+(4,4,'Witold','Małysz','witek@wp.pl','644111333','1992-03-01'),
+(5,5,'Tomek','Klemens','klem@wp.pl','323454354','1992-03-04'),
+(6,6,'Mati','Mel','mal@wp.pl','611222333','1992-04-01');
+go
+
+INSERT INTO plyta(tytul,autor,gatunek,zdjecie1,zdjecie2,cena,ilosc,opis,data_wydania) VALUES 
+('After Hours','The Weeknd','R&B','/images/photo1','/images/photo2','35.50',10,'Bardzo fajna plytka,polecam-Piotr Brac','2020-01-01'),
+('Starboy','The Weeknd','R&B','/images/photo5','/images/photo6','35.50',10,'Trzyma poziom-Piotr Brac','2018-01-01'),
+('House of Baloons','The Weeknd','R&B','/images/photo3','/images/photo4','22.50',5,'To juz jest klasyk-Piotr Brac','2014-01-01');
+
+INSERT INTO opinia(id_klient,id_plyta,tresc) VALUES 
+(2,1,'Moja ulubiona plyta'),
+(2,1,'Klasyk'),
+(3,2,'No mega jest!'),
+(4,3,'Kozak mixtape');
+go
+
+INSERT INTO zamowienie(id_klient,data_zamowienia,stan_zamowienia,cena_zamowienia) VALUES 
+(2,'2016-01-01','dostarczono','71'),
+(3,'2017-01-01','dostarczono','22.50');
+go
+
+INSERT INTO pozycjaZamowienia(id_plyta,id_zamowienie,ilosc) VALUES 
+(1,1,2),
+(3,2,1);
+go
+
+insert into koszyk(id_klient) values
+(2),
+(3),
+(4);
+go
+
+insert into pozycjaKoszyka(id_koszyk,id_plyta,ilosc) values
+(1,3,1),
+(1,2,1),
+(2,3,1),
+(3,2,1);
+go
+
+select * from klient;
+go
+select * from pracownik;
+go
+select * from siteUser;
+go
+select * from adres;
+go
+select * from plyta;
+go
+select * from opinia;
+go
+select * from koszyk;
+go
+select * from pozycjaKoszyka;
+go
+select * from zamowienie;
+go
+select * from pozycjaZamowienia;
